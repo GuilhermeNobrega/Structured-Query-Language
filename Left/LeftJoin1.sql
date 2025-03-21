@@ -11,6 +11,21 @@ FROM Customers
 LEFT JOIN Orders ON Customers.customer_id = Orders.customer_id
 WHERE Orders.customer_id IS NULL; -- basicamente aqui ele seleciona usuários de Customers que não estão contidos em Orders
 
+-- Outro possível jeito, que deu certo (Deixa item null quando não tem)
+
+SELECT C.customer_id, C.first_name, O.item
+FROM Customers C
+LEFT JOIN Orders O
+ON C.customer_id = O.customer_id
+WHERE O.customer_id IS NULL OR O.customer_id IS NOT NULL;
+-- OU 
+
+SELECT C.customer_id, C.first_name, O.item
+FROM Customers C
+LEFT JOIN Orders O
+ON C.customer_id = O.customer_id;
+
+
 
 SELECT customer_id, first_name, last_name
 FROM Customers
