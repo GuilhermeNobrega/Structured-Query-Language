@@ -92,5 +92,5 @@ Crie as tabelas e faça algumas consultas para entender o comportamento do `LEFT
 
 ---
 
-🔹 **Gostou do conteúdo?** Dê um ⭐ no repositório e contribua com melhorias! 😃
+🔹 **Gostou do conteúdo?** Dê um ⭐ no repositório e contribua com melhorias!
 
