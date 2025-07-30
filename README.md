@@ -53,3 +53,65 @@ ORDER BY C.country;
 - GROUP BY agrupa os resultados por país.
 - HAVING é utilizado após o GROUP BY para filtrar os resultados agregados (diferente do WHERE que filtra linha a linha).
 - ORDER BY organiza o resultado final alfabeticamente pelo país.
+
+
+---
+
+
+## 🔹 Exercício 3 — Subquery + Filtro
+
+### **Enunciado:**
+
+Liste o `first_name`, `last_name` e `country` de todos os clientes que **não fizeram nenhum pedido**.
+
+- Pode-se usar `SUBQUERY` ou `LEFT JOIN`.
+
+### **Resultado esperado:**
+- Campos: `first_name`, `last_name`, `country`
+- Somente clientes sem pedidos associados
+
+### **Query (com subquery):**
+
+```sql
+SELECT C.first_name as name, C.last_name as sobrenome, C.country as país
+FROM Customers C
+LEFT JOIN Orders O
+ON C.customer_id = O.customer_id
+WHERE C.customer_id NOT IN(SELECT customer_id FROM Orders)
+
+--OU
+
+SELECT C.first_name AS name, C.last_name AS sobrenome, C.country AS país
+FROM Customers C
+LEFT JOIN Orders O ON C.customer_id = O.customer_id
+WHERE O.customer_id IS NULL;
+```
+---
+
+## 🔹 Exercício 4 — JOIN + GROUP BY + MAX
+
+### **Enunciado:**
+
+Para **cada país**, mostre o nome completo (`first_name` + `last_name`) do **cliente que fez o pedido de maior valor**.
+
+### **Resultado esperado:**
+- Campos: `country`, `first_name`, `last_name`, `amount`
+
+### **Query (versão simples com GROUP BY):**
+
+```sql
+SELECT C.country AS país, C.first_name AS name, C.last_name AS sobrenome, MAX(amount) as quantidade
+FROM Customers C
+LEFT JOIN Orders O 
+ON C.customer_id = O.customer_id
+GROUP BY C.country
+
+--OU
+
+SELECT C.country AS país, C.first_name AS name, C.last_name AS sobrenome, MAX(amount) as quantidade
+FROM Customers C
+LEFT JOIN Orders O 
+ON C.customer_id = O.customer_id
+GROUP BY C.country
+HAVING O.customer_id IS NOT NULL;
+```
